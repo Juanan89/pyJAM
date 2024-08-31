@@ -9,6 +9,8 @@ from Autodesk.Revit.DB import(
     View,
     ViewDuplicateOption,
     Transaction,
+    Parameter,
+    ForgeTypeId
 )
 
 from Autodesk.Revit.UI import(
@@ -24,6 +26,8 @@ __doc__     = """Duplica la vista actual como dependiente y le asigna la caja de
 doc: Document = revit.doc
 uidoc: UIDocument = revit.uidoc
 vista_activa: View = doc.ActiveView
+param_vista_nombre: ForgeTypeId = ForgeTypeId('autodesk.revit.parameter:viewName-1.0.0')
+param_vista_caja: ForgeTypeId = ForgeTypeId('autodesk.revit.parameter:viewerVolumeOfInterestCrop-1.0.0')
 
 caja_referencia: Element = revit.pick_element(message='Seleccione una caja de referencia')
 
@@ -42,8 +46,8 @@ def DuplicarConCaja(vista: View, caja: Element):
     vista_nueva: View = doc.GetElement(vista_nueva_id)
 
     vista_nueva_nombre: str = vista.Name + " - " + caja.Name
-    vista_nueva.LookupParameter('Nombre de vista').Set(vista_nueva_nombre)
-    vista_nueva.LookupParameter('Caja de referencia').Set(caja.Id)
+    vista_nueva.GetParameter(param_vista_nombre).Set(vista_nueva_nombre)
+    vista_nueva.GetParameter(param_vista_caja).Set(caja.Id)
 
     return vista_nueva
 
