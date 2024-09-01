@@ -16,9 +16,9 @@ Instrucciones:
 - ???
 - Profit
 """
-__highlight__ = "new"
+#__highlight__ = "new"
 __min_revit_ver__ = 2019
-__max_revit_ver = 2025
+__max_revit_ver__ = 2025
 __context__ = ['Walls','Floors','Roofs']
 
 if __name__ == '__main__':
